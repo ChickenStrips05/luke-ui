@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.chickenstrips05.lukeui.Mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
+  "client": [
+    "TickRateMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

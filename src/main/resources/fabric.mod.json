@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "lukeui",
+  "version": "${version}",
+  "name": "LukeUI",
+  "description": "UI mod",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/lukeui/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.chickenstrips05.lukeui.Lukeui"
+    ]
+  },
+  "mixins": [
+    "lukeui.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
