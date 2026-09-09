@@ -3,6 +3,7 @@ package dev.chickenstrips05.lukeui;
 // https://gist.github.com/dipu-bd/939502e190f430603a7a48f358a895d9
 // @dipu-bd
 // dipu-bd/TitleCase.java
+// I did NOT make this code
 
 public class TitleCase {
     private static int getCharType(char ch) {
