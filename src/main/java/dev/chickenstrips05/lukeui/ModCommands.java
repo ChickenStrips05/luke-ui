@@ -4,12 +4,9 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import dev.chickenstrips05.lukeui.Config;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
-
-import java.util.stream.Collectors;
 
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
@@ -17,6 +14,7 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 
 public class ModCommands {
     public static void init() {
+
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             dispatcher.register(
                     literal("lukeui")
@@ -24,7 +22,7 @@ public class ModCommands {
                                     .then(literal("border")
                                             .then(argument("state", BoolArgumentType.bool())
                                                     .executes(context -> {
-                                                        Config.setBorders(BoolArgumentType.getBool(context, "state"));
+                                                        ModConfig.setBorders(BoolArgumentType.getBool(context, "state"));
                                                         return 1;
                                                     })
                                             )
@@ -33,7 +31,7 @@ public class ModCommands {
                                     .then(literal("allBorders")
                                             .then(argument("state", BoolArgumentType.bool())
                                                     .executes(context -> {
-                                                        Config.setShowAllBorders(BoolArgumentType.getBool(context, "state"));
+                                                        ModConfig.setShowAllBorders(BoolArgumentType.getBool(context, "state"));
                                                         return 1;
                                                     })
                                             )
@@ -42,7 +40,7 @@ public class ModCommands {
                                     .then(literal("roundPosition")
                                             .then(argument("state", BoolArgumentType.bool())
                                                     .executes(context -> {
-                                                        Config.setShouldRound(BoolArgumentType.getBool(context, "state"));
+                                                        ModConfig.setShouldRound(BoolArgumentType.getBool(context, "state"));
                                                         return 1;
                                                     })
                                             )
@@ -51,7 +49,7 @@ public class ModCommands {
                                     .then(literal("windowX")
                                             .then(argument("x", IntegerArgumentType.integer(0, 200))
                                                     .executes(context -> {
-                                                        Config.setwX(IntegerArgumentType.getInteger(context, "x"));
+                                                        ModConfig.setwX(IntegerArgumentType.getInteger(context, "x"));
                                                         return 1;
                                                     })
                                             )
@@ -60,7 +58,7 @@ public class ModCommands {
                                     .then(literal("windowY")
                                             .then(argument("y", IntegerArgumentType.integer(0, 200))
                                                     .executes(context -> {
-                                                        Config.setwY(IntegerArgumentType.getInteger(context, "y"));
+                                                        ModConfig.setwY(IntegerArgumentType.getInteger(context, "y"));
                                                         return 1;
                                                     })
                                             )
@@ -69,7 +67,7 @@ public class ModCommands {
                                     .then(literal("windowWidth")
                                             .then(argument("width", IntegerArgumentType.integer(0, 200))
                                                     .executes(context -> {
-                                                        Config.setWidth(IntegerArgumentType.getInteger(context, "width"));
+                                                        ModConfig.setWidth(IntegerArgumentType.getInteger(context, "width"));
                                                         return 1;
                                                     })
                                             )
@@ -78,7 +76,7 @@ public class ModCommands {
                                     .then(literal("windowHeight")
                                             .then(argument("height", IntegerArgumentType.integer(0, 200))
                                                     .executes(context -> {
-                                                        Config.setHeight(IntegerArgumentType.getInteger(context, "height"));
+                                                        ModConfig.setHeight(IntegerArgumentType.getInteger(context, "height"));
                                                         return 1;
                                                     })
                                             )
@@ -87,7 +85,7 @@ public class ModCommands {
                                     .then(literal("borderThickness")
                                             .then(argument("thickness", IntegerArgumentType.integer(1, 10))
                                                     .executes(context -> {
-                                                        Config.setBorderThickness(IntegerArgumentType.getInteger(context, "thickness"));
+                                                        ModConfig.setBorderThickness(IntegerArgumentType.getInteger(context, "thickness"));
                                                         return 1;
                                                     })
                                             )
@@ -96,7 +94,7 @@ public class ModCommands {
                                     .then(literal("leftMargin")
                                             .then(argument("margin", IntegerArgumentType.integer(0, 50))
                                                     .executes(context -> {
-                                                        Config.setLeftMargin(IntegerArgumentType.getInteger(context, "margin"));
+                                                        ModConfig.setLeftMargin(IntegerArgumentType.getInteger(context, "margin"));
                                                         return 1;
                                                     })
                                             )
@@ -105,7 +103,7 @@ public class ModCommands {
                                     .then(literal("topMargin")
                                             .then(argument("margin", IntegerArgumentType.integer(0, 50))
                                                     .executes(context -> {
-                                                        Config.setTopMargin(IntegerArgumentType.getInteger(context, "margin"));
+                                                        ModConfig.setTopMargin(IntegerArgumentType.getInteger(context, "margin"));
                                                         return 1;
                                                     })
                                             )
@@ -114,7 +112,7 @@ public class ModCommands {
                                     .then(literal("textScale")
                                             .then(argument("scale", FloatArgumentType.floatArg(0.1f, 3.0f))
                                                     .executes(context -> {
-                                                        Config.setTextScale(FloatArgumentType.getFloat(context, "scale"));
+                                                        ModConfig.setTextScale(FloatArgumentType.getFloat(context, "scale"));
                                                         return 1;
                                                     })
                                             )
@@ -123,15 +121,31 @@ public class ModCommands {
                                     .then(literal("textSpacing")
                                             .then(argument("spacing", IntegerArgumentType.integer(1, 50))
                                                     .executes(context -> {
-                                                        Config.setTextSpacing(IntegerArgumentType.getInteger(context, "spacing"));
+                                                        ModConfig.setTextSpacing(IntegerArgumentType.getInteger(context, "spacing"));
                                                         return 1;
                                                     })
                                             )
                                     )
 
+                                    .then(literal("timeFormat")
+                                            .then(argument("format", StringArgumentType.greedyString())
+                                                    .executes(context -> {
+                                                        ModConfig.setTimeFormat(StringArgumentType.getString(context, "format"));
+                                                        return 1;
+                                                    })
+                                            ))
+
+                                    .then(literal("textShadow")
+                                            .then(argument("shadow", BoolArgumentType.bool())
+                                                   .executes(context -> {
+                                                        ModConfig.setTextShadow(BoolArgumentType.getBool(context, "shadow"));
+                                                        return 1;
+                                                })
+                                            ))
+
                                     .then(literal("reset")
                                             .executes(context -> {
-                                                Config.resetConfig();
+                                                ModConfig.resetConfig();
                                                 return 1;
                                             })
                                     )
@@ -140,8 +154,8 @@ public class ModCommands {
                             .then(literal("show")
                                     .then(argument("element", StringArgumentType.word())
                                             .suggests((context, builder) -> {
-                                                for (String suggestion : Config.elements) {
-                                                    if (suggestion.toLowerCase().startsWith(builder.getRemainingLowerCase()) && !Config.shownTexts.contains(suggestion)) {
+                                                for (String suggestion : Lukeui.elements) {
+                                                    if (suggestion.toLowerCase().startsWith(builder.getRemainingLowerCase()) && !ModConfig.shownTexts.contains(suggestion)) {
                                                         builder.suggest(suggestion);
                                                     }
                                                 }
@@ -150,9 +164,9 @@ public class ModCommands {
                                             .executes(context -> {
                                                 String element = StringArgumentType.getString(context, "element");
 
-                                                if (Config.elements.contains(element)) {
-                                                    if (!Config.shownTexts.contains(element)) {
-                                                        Config.showText(element);
+                                                if (Lukeui.elements.contains(element)) {
+                                                    if (!ModConfig.shownTexts.contains(element)) {
+                                                        ModConfig.showText(element);
                                                     } else {
                                                         context.getSource().sendFeedback(Text.literal("Element is already being displayed").withColor(Colors.LIGHT_RED));
                                                     }
@@ -166,7 +180,7 @@ public class ModCommands {
                             .then(literal("hide")
                                     .then(argument("element", StringArgumentType.word())
                                             .suggests((context, builder) -> {
-                                                for (String suggestion : Config.shownTexts) {
+                                                for (String suggestion : ModConfig.shownTexts) {
                                                     if (suggestion.toLowerCase().startsWith(builder.getRemainingLowerCase())) {
                                                         builder.suggest(suggestion);
                                                     }
@@ -176,9 +190,9 @@ public class ModCommands {
                                             .executes(context -> {
                                                 String element = StringArgumentType.getString(context, "element");
 
-                                                if (Config.elements.contains(element)) {
-                                                    if (Config.shownTexts.contains(element)) {
-                                                        Config.removeText(element);
+                                                if (Lukeui.elements.contains(element)) {
+                                                    if (ModConfig.shownTexts.contains(element)) {
+                                                        ModConfig.removeText(element);
                                                     } else {
                                                         context.getSource().sendFeedback(Text.literal("Element is already hidden").withColor(Colors.LIGHT_RED));
                                                     }

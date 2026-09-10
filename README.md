@@ -1,7 +1,9 @@
 # Luke UI
 
-A client side fabric mod that shows helpful information on the screen. It can show your FPS, ping, TPS, position, speed, biome and direction.
-In the future I'm planning to add stuff like time, nether position and colors. Also I'm planning on adding configs for opacity and color.
+A client side fabric mod that shows helpful information on the screen and it's also my first public minecraft mod. It can show your FPS, ping, TPS, position, speed, biome and direction.
+In the future I'm planning to add stuff like nether position and colors to all the text. Also I'm planning on adding configs for opacity and color.
+
+
 
 ![An ingame demo of the UI element](media/demo.png)
 
